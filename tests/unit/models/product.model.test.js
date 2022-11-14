@@ -11,11 +11,12 @@ const connection = require('../../../src/models/connection');
 
 describe('Testando Funções camada Model', () => {
   describe('Testes unitários', () => { 
+    describe('Testando a função allProducts', () => { 
     afterEach(sinon.restore);
 
     it('Verifica se encontra todos os produtos cadastrados ', async () => {
-      sinon.stub(connection, 'execute').resolves([[products]])
-      const result = await productsModel.getById();
+      sinon.stub(connection, 'execute').resolves([products])
+      const result = await productsModel.allProducts();
       expect(result).to.be.deep.equal(products);
 
     });
@@ -25,6 +26,7 @@ describe('Testando Funções camada Model', () => {
       const result = await productsModel.getById(product.id);
 
       expect(result).to.be.deep.equal(product);
+    });
     });
   });
 });

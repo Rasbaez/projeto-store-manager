@@ -15,12 +15,12 @@ describe('Testes da camada Service', () => {
 
     describe('Testes da função "getProducts"', () => { 
 
-    it('A função "getProducts" deve retornar a lista de produtos e no formato correto.', async () => { 
-      sinon.stub(productsModel, 'allProducts').resolves(products);
-      const result = await productsService.getProducts();
+      it('A função "getProducts" deve retornar a lista de produtos e no formato correto.', async () => { 
+        sinon.stub(productsModel, 'allProducts').resolves(products);
+        const result = await productsService.getProducts();
 
-      expect(result).to.deep.equal({ type: null, message: products });
-    });
+        expect(result).to.deep.equal({ type: null, message: products });
+      });
 
     
       it('Em caso de falha deve retornar a mensagem "PRODUCTS_NOT_FOUND", e no formato correto.', async () => { 
@@ -41,6 +41,7 @@ describe('Testes da camada Service', () => {
         expect(result).to.be.deep.equal({ type: null, message: product });
       });
 
+      
       it('Em caso de erro a mensagem "PRODUCT_NOT_FOUND" deve ser retornada, e no formato correto.', async () => {
         sinon.stub(productsModel, 'getById').resolves();
 

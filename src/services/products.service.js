@@ -15,10 +15,9 @@ const getById = async (id) => {
   return { type: null, message: product };
 };
 
-const createProduct = async (product) => { 
-  const productCreated = await productModel.createProduct(product);
+const createProduct = async (name) => { 
+  const productCreated = await productModel.createProduct(name);
 
-  if (!product) return { type: 'FAILURE_ON_CREATE_PRODUCT', message: 'Fail on create product' };
   return { type: null, message: productCreated };
 };
 

@@ -9,24 +9,28 @@ const  { products, product }  = require('./mocks/products.model.mock');
 const  productsModel  = require('../../../src/models/product.model');
 const connection = require('../../../src/models/connection');
 
-describe('Testando Funções camada Model', () => {
+describe('Testes da camada Model', () => {
   describe('Testes unitários', () => { 
     describe('Testando a função allProducts', () => { 
     afterEach(sinon.restore);
 
     it('Verifica se encontra todos os produtos cadastrados ', async () => {
       sinon.stub(connection, 'execute').resolves([products])
+
       const result = await productsModel.allProducts();
+
       expect(result).to.be.deep.equal(products);
-
+    });
     });
 
-    it('Verifica se encontra um produto por id', async () => { 
-      sinon.stub(connection, 'execute').resolves([[product]]);
-      const result = await productsModel.getById(product.id);
+    describe('Testando a função getById', () => { 
+      it('Verifica se encontra um produto por id', async () => {
+        sinon.stub(connection, 'execute').resolves([[product]]);
 
-      expect(result).to.be.deep.equal(product);
-    });
+        const result = await productsModel.getById(product.id);
+
+        expect(result).to.be.deep.equal(product);
+      });
     });
   });
 });

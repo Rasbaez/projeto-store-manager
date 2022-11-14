@@ -4,8 +4,7 @@ const products = [
   { id: 3, name: 'Escudo do Capitão América' }
 ];
 
-const failureRequest = { type: 'PRODUCTS_NOT_FOUND', message: 'Products not found' };
 
 const product = { id: 3, name: 'Escudo do Capitão América' };
 
-module.exports = { products, product, failureRequest };
+module.exports = { products, product };

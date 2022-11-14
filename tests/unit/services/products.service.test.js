@@ -15,7 +15,7 @@ describe('Testes da camada Service', () => {
 
     describe('Testes da função "getProducts"', () => { 
 
-      it('A função "getProducts" deve retornar a lista de produtos e no formato correto.', async () => { 
+      it('Em caso de sucesso deve retornar a lista de produtos no formato correto.', async () => { 
         sinon.stub(productsModel, 'allProducts').resolves(products);
         const result = await productsService.getProducts();
 
@@ -23,7 +23,7 @@ describe('Testes da camada Service', () => {
       });
 
     
-      it('Em caso de falha deve retornar a mensagem "PRODUCTS_NOT_FOUND", e no formato correto.', async () => { 
+      it('Em caso de falha deve retornar a mensagem "PRODUCTS_NOT_FOUND", no formato correto.', async () => { 
       sinon.stub(productsModel, 'allProducts').resolves();
 
       const result = await productsService.getProducts();
@@ -42,7 +42,7 @@ describe('Testes da camada Service', () => {
       });
 
       
-      it('Em caso de erro a mensagem "PRODUCT_NOT_FOUND" deve ser retornada, e no formato correto.', async () => {
+      it('Em caso de erro a mensagem "PRODUCT_NOT_FOUND" deve ser retornada, no formato correto.', async () => {
         sinon.stub(productsModel, 'getById').resolves();
 
         const result = await productsService.getById(product.id);

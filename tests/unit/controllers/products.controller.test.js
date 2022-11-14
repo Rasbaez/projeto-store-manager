@@ -28,13 +28,13 @@ describe('Testes da camada Controller', () => {
         
         await productsController.getProducts(req, res);
         expect(res.status).to.have.been.calledWith(200);
-        expect(res.json).to.have.been.calledWith( products );
+        expect(res.json).to.have.been.calledWith(products);
       });
     });
 
     describe('Testando a função getById', () => { 
       it('A função deve listar o produto pelo Id solicitado', async () => { 
-        const req = {params: { id: 3}, body: { }};
+        const req = {params: { id: 3 }, body: { }};
         const res = product;
 
         res.status = sinon.stub().returns(res);
@@ -58,6 +58,7 @@ describe('Testes da camada Controller', () => {
 
         sinon.stub(productsService, 'getById').resolves(
           { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
+      
         await productsController.getById(req, res);
 
         expect(res.status).to.have.been.calledWith(404);

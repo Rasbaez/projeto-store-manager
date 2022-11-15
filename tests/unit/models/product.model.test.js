@@ -37,10 +37,8 @@ describe('Testes da camada Model', () => {
         sinon.stub(connection, 'execute').resolves([{ insertId:4 }]);
         
         const result = await productsModel.createProduct('xablau'); 
-      
        
         expect(result).to.be.deep.equal({ id: 4, name: 'xablau' });
-        
        });
     });
     });

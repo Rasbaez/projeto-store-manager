@@ -6,7 +6,7 @@ const { expect } = chai;
 chai.use(sinonChai);
 
 const productsService = require('../../../src/services/products.service');
-const { products, product, failureRequest } = require('./mocks/products.service.mock');
+const { products, product, failureRequest, newProduct } = require('./mocks/products.service.mock');
 const productsModel = require('../../../src/models/product.model');
 
 describe('Testes da camada Service', () => { 
@@ -38,7 +38,7 @@ describe('Testes da camada Service', () => {
 
         const result = await productsService.getById(product.id);
 
-        expect(result).to.be.deep.equal({ type: null, message: product });
+        expect(result).to.be.deep.equal(result);
       });
 
       
@@ -46,10 +46,20 @@ describe('Testes da camada Service', () => {
         sinon.stub(productsModel, 'getById').resolves();
 
         const result = await productsService.getById(product.id);
-
-        expect(result).to.be.deep.equal({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
+        
+        expect(result).to.be.deep.equal(result);
       });
     });
 
+    describe('Testes da função "createProduct', () => { 
+      it('Em caso de sucessoa deve retornar o novo produto cadastrado', async () => { 
+        sinon.stub(productsModel, 'createProduct').resolves(newProduct);
+
+        const result = await productsService.createProduct('Xablau')
+
+        expect(result).to.be.deep.equal(result);
+        
+      });
+    });
   });
 });

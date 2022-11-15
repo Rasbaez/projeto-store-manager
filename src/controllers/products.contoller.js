@@ -24,6 +24,7 @@ const createProduct = async (req, res) => {
   
   return res.status(201).json(message);
 };
+
 module.exports = {
   getProducts,
   getById,

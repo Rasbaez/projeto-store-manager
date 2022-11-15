@@ -5,14 +5,14 @@ const sinonChai = require('sinon-chai');
 const { expect } = chai;
 chai.use(sinonChai);
 
-const  { products, product }  = require('./mocks/products.model.mock');
+const { products, product }  = require('./mocks/products.model.mock');
 const  productsModel  = require('../../../src/models/product.model');
 const connection = require('../../../src/models/connection');
 
 describe('Testes da camada Model', () => {
   describe('Testes unitários', () => { 
-    describe('Testando a função allProducts', () => { 
     afterEach(sinon.restore);
+    describe('Testando a função allProducts', () => { 
 
     it('Verifica se encontra todos os produtos cadastrados ', async () => {
       sinon.stub(connection, 'execute').resolves([products])
@@ -31,6 +31,18 @@ describe('Testes da camada Model', () => {
 
         expect(result).to.be.deep.equal(product);
       });
+
+    describe('Testes da função createProduct', () => { 
+      it('A função deve cadastrar um produto novo', async () => {
+        sinon.stub(connection, 'execute').resolves([{ insertId:4 }]);
+        
+        const result = await productsModel.createProduct('xablau'); 
+      
+       
+        expect(result).to.be.deep.equal({ id: 4, name: 'xablau' });
+        
+       });
+    });
     });
   });
 });

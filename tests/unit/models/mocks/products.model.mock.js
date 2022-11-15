@@ -20,4 +20,8 @@ const product =
 };
 
 
-module.exports = { products, product }
+
+module.exports = {
+  products,
+  product,
+};

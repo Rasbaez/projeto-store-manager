@@ -8,14 +8,14 @@ chai.use(sinonChai);
 
 const productsService = require('../../../src/services/products.service');
 const productsController = require('../../../src/controllers/products.contoller');
-const { products, product } = require('./mock/products.controller.mock');
+const { products, product, requestNewProduct, newProduct } = require('./mock/products.controller.mock');
 
 describe('Testes da camada Controller', () => {
   describe('Testes unitários', () => { 
     afterEach(sinon.restore);
 
     describe('Testes da função "getProducts"', () => { 
-      it('Caso sucesso deve retornar a lista de produtos, no formato correto', async () => { 
+      it('Caso sucesso deve retornar a lista de todos os produtos cadastrados.', async () => { 
         const req = {};
         const res = products
         
@@ -64,6 +64,22 @@ describe('Testes da camada Controller', () => {
         expect(res.status).to.have.been.calledWith(404);
         expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
 
+      });
+    });
+
+    describe('Testando a função createProduct', () => { 
+      it('Em caso de sucesso deve retornar o novo produto cadastrado.', async  () => { 
+        const req = { body: requestNewProduct  };
+        const res = {  };
+
+        res.status = sinon.stub().returns(res)
+        res.json = sinon.stub().returns();
+
+        sinon.stub(productsService, 'createProduct').resolves({ type: null, message: newProduct })
+        await productsController.createProduct(req, res);
+
+        expect(res.status).to.have.been.calledWith(201);
+        expect(res.json).to.have.been.calledWith( newProduct );
       });
     });
   });

@@ -46,13 +46,13 @@ describe('Testes da camada Service', () => {
         sinon.stub(productsModel, 'getById').resolves();
 
         const result = await productsService.getById(product.id);
-        
+
         expect(result).to.be.deep.equal(result);
       });
     });
 
-    describe('Testes da função "createProduct', () => { 
-      it('Em caso de sucessoa deve retornar o novo produto cadastrado', async () => { 
+    describe('Teste da função "createProduct', () => { 
+      it('Em caso de sucesso deve retornar o novo produto cadastrado', async () => { 
         sinon.stub(productsModel, 'createProduct').resolves(newProduct);
 
         const result = await productsService.createProduct('Xablau')

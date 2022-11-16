@@ -1,5 +1,10 @@
-const express = require('express');
+const { Router } = require('express');
 
-const route = express.Router();
+const salesRoute = Router();
 
-module.exports = route; 
+const salesController = require('../controllers/sales.controller');
+const { validateRequest, checkProduct } = require('../middlewares/validateSalesInputs');
+
+salesRoute.post('/', validateRequest, checkProduct, salesController.createSale);
+
+module.exports = salesRoute; 

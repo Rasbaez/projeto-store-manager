@@ -17,7 +17,7 @@ const requestNewProduct = {
   "name": "Xablau"
 }
 
-const newProduct = { name: 'Xablau' };
+const newProduct = { id: 5, name: 'Xablau' };
 
 module.exports = {
   products,

@@ -7,5 +7,6 @@ const { validateRequest, checkProduct } = require('../middlewares/validateSalesI
 
 salesRoute.post('/', validateRequest, checkProduct, salesController.createSale);
 salesRoute.get('/', salesController.getAllSales);
+salesRoute.get('/:id', salesController.getSaleById);
 
 module.exports = salesRoute; 

@@ -78,5 +78,19 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "523c70ca-ac94-4952-ae44-fc7c1747be5a",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3000/sales/1",
+    "url": "http://localhost:3000/sales/999",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-11-17T18:21:41.623Z",
+    "modified": "2022-11-17T19:12:09.623Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

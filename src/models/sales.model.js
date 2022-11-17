@@ -1,7 +1,7 @@
 const connection = require('./connection');
 const { dateNow } = require('../utils/service');
 
-const insertIdProduct = async () => {
+const insertIdSale = async () => {
   const date = dateNow();
   const [{ insertId }] = await connection.execute(
     'INSERT INTO StoreManager.sales (date) VALUES (?)',
@@ -18,4 +18,23 @@ const insertSale = async ({ productId, quantity }, id) => {
   return { type: null, message: result };
 };
 
-module.exports = { insertIdProduct, insertSale };
+const allSales = async () => {
+  const [result] = await connection.execute(
+    `SELECT s.id, s.date, p.product_id, p.quantity FROM StoreManager.sales s
+      INNER JOIN sales_products AS p ON s.id = p.sale_id
+      ORDER BY p.product_id`,
+  );
+
+  const formatedResult = result.map(
+    ({ id: saleId, date, product_id: productId, quantity }) => ({
+      saleId,
+        date,
+        productId,
+        quantity,
+     }),
+);
+
+  return [...formatedResult];
+};
+
+module.exports = { insertIdSale, insertSale, allSales };

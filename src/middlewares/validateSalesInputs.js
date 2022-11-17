@@ -15,9 +15,7 @@ const checkProduct = async (req, res, next) => {
 const validateRequest = async (req, res, next) => {
   const salesToInsert = req.body;
   const result = salesToInsert.every(({ quantity }) => quantity >= 1);
-  // console.log(result);
   const qtyExist = salesToInsert.every(({ quantity }) => quantity || quantity === 0);
-  // console.log(qtyExist);
   const idExist = salesToInsert.every(({ productId }) => productId || productId === 0);
 
   if (!qtyExist) {

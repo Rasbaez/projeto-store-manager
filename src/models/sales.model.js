@@ -16,7 +16,8 @@ const insertSale = async ({ productId, quantity }, id) => {
     'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES(?, ?, ?)',
     [id, productId, quantity],
   );
-  return { type: null, message: result };
+
+  return result;
 };
 
 const getSaleById = async (id) => {
@@ -37,17 +38,8 @@ const allSales = async () => {
       INNER JOIN sales_products AS p ON s.id = p.sale_id
       ORDER BY p.product_id`,
   );
-
-  const formatedResult = result.map(
-    ({ id: saleId, date, product_id: productId, quantity }) => ({
-      saleId,
-        date,
-        productId,
-        quantity,
-     }),
-);
-
-  return [...formatedResult];
+  
+  return result;
 };
   
 module.exports = { insertIdSale, insertSale, allSales, getSaleById };

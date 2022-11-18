@@ -12,9 +12,18 @@ const createSale = async (sale) => {
 const getAllSales = async () => { 
   const allSales = await salesModel.allSales();
 
+  const formatedResult = allSales.map(
+    ({ id: saleId, date, product_id: productId, quantity }) => ({
+      saleId,
+      date,
+      productId,
+      quantity,
+    }),
+  );
+  // console.log(formatedResult);
   if (!allSales) return { type: 'SALES_NOT_FOUND', message: 'Sales not found' };
 
-  return { type: null, message: allSales };
+  return { type: null, message: formatedResult };
 };
 
 const getSaleById = async (id) => {

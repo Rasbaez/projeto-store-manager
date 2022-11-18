@@ -38,9 +38,17 @@ describe('Testes da camada Service para "Sales"', () => {
        
         expect(allSales).to.be.deep.equal({ type, message  });
       });
+
+      it('Em caso de falha deve retornar a mensagem: "SALES_NOT_FOUND"', async () => { 
+        sinon.stub(salesModel, 'allSales').resolves([]);
+
+        const allSales = await salesService.getAllSales();
+
+        expect(allSales).to.be.deep.equal(allSales);
+      });
     });
 
-    describe('teste da função "getSaleById"', () => {
+    describe('testes da função "getSaleById"', () => {
       it('A função deve retornar a sale com o Id solicitado', async () => { 
         sinon.stub(salesModel, 'getSaleById').resolves([requestedSaleById]);
         
@@ -48,6 +56,15 @@ describe('Testes da camada Service para "Sales"', () => {
         const { type, message } = saleById;
         expect(saleById).to.be.deep.equal({ type, message });
       });
-     });
+
+      it('Em caso de falha deve retornar a mensagem: "SALE_NOT_FOUND" ', async () => { 
+        sinon.stub(salesModel, 'getSaleById').resolves([]);
+
+        const saleById = await salesService.getSaleById(999);
+
+        expect(saleById).to.be.deep.equal(saleById);
+
+      });
+    }); 
   });
 });

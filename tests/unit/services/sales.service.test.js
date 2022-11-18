@@ -55,7 +55,6 @@ describe('Testes da camada Service para "Sales"', () => {
         const saleById = await salesService.getSaleById(999);
 
         expect(saleById).to.be.deep.equal(saleById);
-
       });
     }); 
   });

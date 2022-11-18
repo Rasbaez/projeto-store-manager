@@ -38,14 +38,6 @@ describe('Testes da camada Service para "Sales"', () => {
        
         expect(allSales).to.be.deep.equal({ type, message  });
       });
-
-      it('Em caso de falha deve retornar a mensagem: "SALES_NOT_FOUND"', async () => { 
-        sinon.stub(salesModel, 'allSales').resolves([]);
-
-        const allSales = await salesService.getAllSales();
-
-        expect(allSales).to.be.deep.equal(allSales);
-      });
     });
 
     describe('testes da função "getSaleById"', () => {

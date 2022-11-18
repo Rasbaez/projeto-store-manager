@@ -38,7 +38,7 @@ const allSales = async () => {
       INNER JOIN sales_products AS p ON s.id = p.sale_id
       ORDER BY p.product_id`,
   );
-  
+ 
   return result;
 };
   

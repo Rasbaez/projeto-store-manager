@@ -21,9 +21,7 @@ const getAllSales = async () => {
       quantity,
     }),
   );
-  // console.log(formatedResult);
-  if (!allSales) return { type: 'SALES_NOT_FOUND', message: 'Sales not found' };
-
+ 
   return { type: null, message: formatedResult };
 };
 

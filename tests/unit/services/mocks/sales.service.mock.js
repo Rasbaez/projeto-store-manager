@@ -81,4 +81,9 @@ const requestedSaleById = [
   }
 ];
 
-module.exports = { saleRegisterRequest, saleRegistredResult, salesList, requestedSaleById };
+module.exports = {
+  saleRegisterRequest,
+  saleRegistredResult,
+  salesList,
+  requestedSaleById
+};

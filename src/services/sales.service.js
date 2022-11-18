@@ -5,7 +5,8 @@ const createSale = async (sale) => {
 
    const result = await Promise.all(sale.map(async (elem) => { 
     salesModel.insertSale(elem, id);
-  }));
+   }));
+
   return { type: null, id, message: result };
 };
 

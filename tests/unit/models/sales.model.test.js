@@ -16,7 +16,6 @@ const connection = require('../../../src/models/connection');
 
 describe('Testes da camada Model', () => { 
   describe('Testes unitários (sales)', () => { 
-
     afterEach(sinon.restore);
 
     describe('Teste da função "allSales"', () => { 
@@ -58,7 +57,6 @@ describe('Testes da camada Model', () => {
         const insertSale = await salesModel.insertSale(saleRegisterRequest, id);
 
         expect(insertSale).to.be.deep.equal(saleregistred);
-
       });
     });
   });

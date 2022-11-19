@@ -38,7 +38,7 @@ const deleteProduct = async (productId) => {
     'DELETE FROM StoreManager.products WHERE id = (?)',
     [productId],
   );
-  console.log(productId);
+  
   return result;
 };
 

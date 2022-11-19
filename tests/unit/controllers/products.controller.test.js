@@ -10,7 +10,7 @@ const productsService = require('../../../src/services/products.service');
 const productsController = require('../../../src/controllers/products.contoller');
 const { products, product, requestNewProduct, newProduct } = require('./mock/products.controller.mock');
 
-describe('Testes da camada Controller', () => {
+describe('Testes da camada Controller/Products', () => {
   describe('Testes unitários', () => { 
     afterEach(sinon.restore);
 

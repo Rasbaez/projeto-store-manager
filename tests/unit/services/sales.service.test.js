@@ -14,7 +14,7 @@ const {
   salesList,
   requestedSaleById } = require('./mocks/sales.service.mock');
 
-describe('Testes da camada Service para "Sales"', () => { 
+describe('Testes da camada Service/Sales', () => { 
   describe('Testes unitários', () => { 
     afterEach(sinon.restore);
 

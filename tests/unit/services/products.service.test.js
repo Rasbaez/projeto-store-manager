@@ -9,7 +9,7 @@ const productsService = require('../../../src/services/products.service');
 const { products, product, failureRequest, newProduct } = require('./mocks/products.service.mock');
 const productsModel = require('../../../src/models/product.model');
 
-describe('Testes da camada Service', () => { 
+describe('Testes da camada Service/Products', () => { 
   describe('Testes unitários', () => { 
     afterEach(sinon.restore);
 

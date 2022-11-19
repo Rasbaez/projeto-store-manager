@@ -31,16 +31,15 @@ describe('Testes da camada Model/Products', () => {
 
         expect(result).to.be.deep.equal(product);
       });
-
-    describe('Testes da função createProduct', () => { 
-      it('A função deve cadastrar um produto novo', async () => {
-        sinon.stub(connection, 'execute').resolves([{ insertId:4 }]);
-        
-        const result = await productsModel.createProduct('xablau'); 
-       
-        expect(result).to.be.deep.equal({ id: 4, name: 'xablau' });
-       });
     });
+    describe('Testes da função createProduct', () => {
+      it('A função deve cadastrar um produto novo', async () => {
+        sinon.stub(connection, 'execute').resolves([{ insertId: 4 }]);
+
+        const result = await productsModel.createProduct('xablau');
+
+        expect(result).to.be.deep.equal({ id: 4, name: 'xablau' });
+      });
     });
   });
 });

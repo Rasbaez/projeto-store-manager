@@ -40,7 +40,7 @@ describe('Testes da camada Service/Sales', () => {
       });
     });
 
-    describe('testes da função "getSaleById"', () => {
+    describe('Testes da função "getSaleById"', () => {
       it('A função deve retornar a sale com o Id solicitado', async () => { 
         sinon.stub(salesModel, 'getSaleById').resolves([requestedSaleById]);
         

@@ -15,7 +15,7 @@ const salesModel = require('../../../src/models/sales.model');
 const connection = require('../../../src/models/connection');
 
 describe('Testes da camada Model/Sales', () => { 
-  describe('Testes unitários (sales)', () => { 
+  describe('Testes unitários', () => { 
     afterEach(sinon.restore);
 
     describe('Teste da função "allSales"', () => { 

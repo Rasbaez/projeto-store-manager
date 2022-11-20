@@ -5,7 +5,7 @@ const checkProduct = async (req, res, next) => {
   const products = await productsModel.allProducts();
 
   const allProductIds = products.map((product) => product.id);
-  // console.log(allProductIds);
+
   const productVerify = body.every(({ productId }) => allProductIds.includes(productId));
   if (!productVerify) return res.status(404).json({ message: 'Product not found' });
 

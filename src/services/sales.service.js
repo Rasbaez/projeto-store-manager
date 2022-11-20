@@ -1,5 +1,7 @@
 const salesModel = require('../models/sales.model');
 
+const SALE_NOT_FOUND = { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
+
 const createSale = async (sale) => { 
   const { id } = await salesModel.insertIdSale();
 
@@ -28,9 +30,39 @@ const getAllSales = async () => {
 const getSaleById = async (id) => {
   const result = await salesModel.getSaleById(id);
 
-  if (!result.length) return { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
+  if (!result.length) return SALE_NOT_FOUND;
 
   return { type: null, message: result };
 };
   
-module.exports = { createSale, getAllSales, getSaleById };
+const deleteSaleById = async (saleId) => { 
+  const salesList = await salesModel.allSales();
+  const saleExist = salesList.some(({ id }) => id === saleId);
+
+  await salesModel.deleteSaleById(saleId);
+  if (!saleExist) return SALE_NOT_FOUND;
+
+  return { type: null, message: '' };
+};
+
+const editSaleById = async (idSale, body) => {
+  const salesList = await salesModel.allSales();
+ 
+  const saleExist = salesList.some(({ id }) => id === idSale);
+
+  const result = await Promise.all(body.map(async (sale) => {
+    salesModel.editSaleById(idSale, sale);
+  }));
+
+  if (!saleExist) return SALE_NOT_FOUND;
+
+  return { type: null, message: result };
+}; 
+
+module.exports = {
+  createSale,
+  getAllSales,
+  getSaleById,
+  deleteSaleById,
+  editSaleById,
+};

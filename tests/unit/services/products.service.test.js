@@ -33,7 +33,7 @@ describe('Testes da camada Service/Products', () => {
       });
 
     
-      it('Em caso de falha deve retornar a mensagem "PRODUCTS_NOT_FOUND", no formato correto.', async () => { 
+      it('Em caso de falha deve retornar a mensagem "PRODUCTS_NOT_FOUND".', async () => { 
       sinon.stub(productsModel, 'allProducts').resolves();
 
       const result = await productsService.getProducts();
@@ -113,7 +113,7 @@ describe('Testes da camada Service/Products', () => {
         sinon.stub(productsModel, 'deleteProduct').resolves();
 
         const result = await productsService.deleteProduct(1);
-        console.log(result)
+        
         expect(result).to.be.deep.equal({ type: null, message: '' });
       });
 

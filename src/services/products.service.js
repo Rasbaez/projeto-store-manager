@@ -30,7 +30,7 @@ const createProduct = async ({ name }) => {
   }
   
   const productCreated = await productModel.createProduct(name);
-  console.log(productCreated);
+ 
   return { type: null, message: productCreated };
 };
 
@@ -54,11 +54,12 @@ const deleteProduct = async (productId) => {
 
   return { type: null, message: '' };
 };
-
+  
 module.exports = {
   getProducts,
   getById,
   createProduct,
   editProduct,
   deleteProduct,
+ 
 };

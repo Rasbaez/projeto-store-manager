@@ -17,11 +17,11 @@ const getById = async (req, res) => {
 };
   
 const createProduct = async (req, res) => {
-  const { name } = req.body;
-  const { type, message } = await productsService.createProduct(name);
+  const { body } = req;
+  const { type, message } = await productsService.createProduct(body);
+  console.log(type, message);
+  if (type) return res.status(errorMap.mapError(type)).json({ message });
 
-  if (type) return res.status(errorMap.mapError(type)).json(message);
-  
   return res.status(201).json(message);
 };
 
@@ -41,7 +41,7 @@ const deleteProduct = async (req, res) => {
   const { type, message } = await productsService.deleteProduct(Number(id));
   if (type) return res.status(errorMap.mapError(type)).json({ message });
 
-  res.status(204).end();
+  return res.status(204).end();
 };
 
 module.exports = {

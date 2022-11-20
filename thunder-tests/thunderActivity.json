@@ -36,12 +36,12 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-11-14T15:05:46.033Z",
-    "modified": "2022-11-15T19:41:53.830Z",
+    "modified": "2022-11-20T13:49:11.677Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\": \"Prodssfgewr\"\n}\n",
+      "raw": "{\n  \"nme\": \"Productsadd\"\n}\n",
       "form": []
     },
     "tests": []
@@ -98,11 +98,11 @@
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3000/products/1",
-    "url": "http://localhost:3000/products/1",
+    "url": "http://localhost:3000/products/6",
     "method": "PUT",
     "sortNum": 0,
     "created": "2022-11-18T19:44:17.137Z",
-    "modified": "2022-11-18T22:38:50.551Z",
+    "modified": "2022-11-20T14:02:59.797Z",
     "headers": [],
     "params": [],
     "body": {

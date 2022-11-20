@@ -6,7 +6,7 @@ const { validateFields } = require('../middlewares/validateNewProductField');
 
 productsRoute.get('/', productsController.getProducts);
 productsRoute.get('/:id', productsController.getById);
-productsRoute.post('/', validateFields, productsController.createProduct);
+productsRoute.post('/', productsController.createProduct);
 productsRoute.put('/:id', validateFields, productsController.editProduct);
 productsRoute.delete('/:id', productsController.deleteProduct);
 

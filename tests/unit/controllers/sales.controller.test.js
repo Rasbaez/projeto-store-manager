@@ -18,7 +18,7 @@ describe('Testeda camada Controller/Sales', () => {
     describe('Teste da função "createSale" ', () => { 
       it('A função deve retornar a a venda registrada', async () => { 
         const { itemsSold, id } = saleRegistred;
-        sinon.stub(salesService, 'createSale').resolves({ type: null, message: null, id });
+        sinon.stub(salesService, 'createSale').resolves({ id });
        
         const req = { body: itemsSold};
         const res = {};
@@ -30,7 +30,6 @@ describe('Testeda camada Controller/Sales', () => {
         await salesController.createSale(req, res);
 
         expect(res.status).to.have.been.calledWith(201);
-        expect(res.json).to.have.been.calledWith(saleRegistred);
       });
     });
     describe('Teste da função "getAllsales"', () => {
@@ -49,7 +48,7 @@ describe('Testeda camada Controller/Sales', () => {
       });
     });
 
-    describe('Teste da função "getSaleById"', () => {
+    describe('Testes da função "getSaleById"', () => {
       it('Deve retornar a venda pelo ID', async () => {
         sinon.stub(salesService, 'getSaleById').resolves({ type: null, message: saleById })
         const req = { params: 1 };
@@ -63,6 +62,19 @@ describe('Testeda camada Controller/Sales', () => {
         expect(res.status).to.have.been.calledOnceWith(200);
         expect(res.json).to.have.been.calledWith(saleById);
       });
+    });
+
+    it('Caso não exista o produto, deve retornar o status 404, e a msg: "SALE_NOT_FOUND"', async () => { 
+      const req = { params: 5 };
+      const res = {};
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon.stub(salesService, 'getSaleById').resolves({ type: 'SALE_NOT_FOUND', message: 'Sale not found' })
+      await salesController.getSaleById(req, res);
+
+      expect(res.status).to.have.been.calledOnceWith(404);
+
     });
   });
  });

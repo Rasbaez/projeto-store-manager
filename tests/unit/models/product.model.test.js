@@ -5,7 +5,7 @@ const sinonChai = require('sinon-chai');
 const { expect } = chai;
 chai.use(sinonChai);
 
-const { products, product }  = require('./mocks/products.model.mock');
+const { products, product, productToeditResult, deletedProduct }  = require('./mocks/products.model.mock');
 const  productsModel  = require('../../../src/models/product.model');
 const connection = require('../../../src/models/connection');
 
@@ -32,6 +32,7 @@ describe('Testes da camada Model/Products', () => {
         expect(result).to.be.deep.equal(product);
       });
     });
+
     describe('Testes da função createProduct', () => {
       it('A função deve cadastrar um produto novo', async () => {
         sinon.stub(connection, 'execute').resolves([{ insertId: 4 }]);
@@ -41,6 +42,26 @@ describe('Testes da camada Model/Products', () => {
         expect(result).to.be.deep.equal({ id: 4, name: 'xablau' });
       });
     });
+
+    describe('Teste da função "editProduct"', () => { 
+      it('A função deve editar um produto solicitado por ID no db', async () => { 
+        sinon.stub(connection, 'execute').resolves([productToeditResult]);
+
+        const result = await productsModel.editProduct(1, 'Martelo do Batman');
+
+        expect(result).to.be.deep.equal(productToeditResult);
+      }); 
+    });
+
+    describe('Teste da função "deleteProduct"', () => {
+      it('A função deve deletar um protudo solicitado por id no db', async () => { 
+        sinon.stub(connection, 'execute').resolves([deletedProduct]);
+
+        const result = await productsModel.deleteProduct(1);
+
+        expect(result).to.be.deep.equal(deletedProduct);
+      });
+    })
   });
 });
 

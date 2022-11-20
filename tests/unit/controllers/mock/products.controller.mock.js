@@ -23,7 +23,9 @@ const productToEditIdResult = {
 
 const newProduct = { id: 5, name: 'Xablau' };
 
-const badrequestProduct = {"nae": "Prodssfgewr" };
+const badNameRequestProduct = { "nae": "Prodssfgewr" };
+
+
 
 module.exports = {
   products,
@@ -32,5 +34,5 @@ module.exports = {
   newProduct,
   productToEditIdResult,
   productToEditRequest,
-  badrequestProduct
+  badNameRequestProduct
 };

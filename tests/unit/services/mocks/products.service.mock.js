@@ -4,10 +4,34 @@ const products = [
   { id: 3, name: 'Escudo do Capitão América' }
 ];
 
-const newProduct = { id: 4, name: 'Xablau' };
+const newProduct = {
+  "id": 4,
+  "name": "ProdutoX"
+};
 
 const failureRequest = { type: 'PRODUCTS_NOT_FOUND', message: 'Products not found' };
 
 const product = { id: 3, name: 'Escudo do Capitão América' };
 
-module.exports = { products, product, failureRequest, newProduct };
+const requestWrongValue = {
+  "name": "Prod"
+};
+
+const productToCreate = {
+  name: "Xablau"
+};
+
+const editedProduct = {
+  "id": 3,
+  "name": "Xablauzeraaaa"
+};
+
+module.exports = {
+  products,
+  product,
+  failureRequest,
+  newProduct,
+  requestWrongValue,
+  productToCreate,
+  editedProduct,
+};

@@ -14,7 +14,6 @@ const getProducts = async () => {
 const getById = async (id) => {
   const product = await productModel.getById(id);
 
-  console.log(product);
   if (!product) return PRODUCT_NOT_FOUND;
   return { type: null, message: product };
 };
@@ -31,7 +30,7 @@ const createProduct = async ({ name }) => {
   }
   
   const productCreated = await productModel.createProduct(name);
-
+  console.log(productCreated);
   return { type: null, message: productCreated };
 };
 

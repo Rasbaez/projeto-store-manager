@@ -1,4 +1,5 @@
 const salesModel = require('../models/sales.model');
+const { verifyIfExist } = require('../utils/service');
 
 const SALE_NOT_FOUND = { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
 
@@ -37,10 +38,9 @@ const getSaleById = async (id) => {
   
 const deleteSaleById = async (saleId) => { 
   const salesList = await salesModel.allSales();
-  const saleExist = salesList.some(({ id }) => id === saleId);
 
   await salesModel.deleteSaleById(saleId);
-  if (!saleExist) return SALE_NOT_FOUND;
+  if (!verifyIfExist(salesList, saleId)) return SALE_NOT_FOUND;
 
   return { type: null, message: '' };
 };
@@ -48,13 +48,11 @@ const deleteSaleById = async (saleId) => {
 const editSaleById = async (idSale, body) => {
   const salesList = await salesModel.allSales();
  
-  const saleExist = salesList.some(({ id }) => id === idSale);
-
   const result = await Promise.all(body.map(async (sale) => {
     salesModel.editSaleById(idSale, sale);
   }));
 
-  if (!saleExist) return SALE_NOT_FOUND;
+  if (!verifyIfExist(salesList, idSale)) return SALE_NOT_FOUND;
 
   return { type: null, message: result };
 }; 

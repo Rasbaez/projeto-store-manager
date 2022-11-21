@@ -4,6 +4,7 @@ const productsRoute = Router();
 const productsController = require('../controllers/products.contoller');
 const { validateFields } = require('../middlewares/validateNewProductField');
 
+productsRoute.get('/search', productsController.getProductsByQuery);
 productsRoute.get('/', productsController.getProducts);
 productsRoute.get('/:id', productsController.getById);
 productsRoute.post('/', productsController.createProduct);

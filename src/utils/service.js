@@ -11,4 +11,6 @@ const dateNow = () => {
   return dateTime;
 };
 
-module.exports = { dateNow };
+const verifyIfExist = (arr, productId) => arr.some(({ id }) => id === productId);
+
+module.exports = { dateNow, verifyIfExist };

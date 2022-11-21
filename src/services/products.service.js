@@ -38,7 +38,6 @@ const editProduct = async (id, name) => {
   const product = await productModel.getById(id);
 
   if (!product) return PRODUCT_NOT_FOUND;
-
   const productEdited = await productModel.editProduct(id, name);
 
   return { type: null, message: productEdited };
@@ -55,11 +54,20 @@ const deleteProduct = async (productId) => {
   return { type: null, message: '' };
 };
   
+const getProductsByQuery = async (query) => {
+  const productList = await productModel.allProducts();
+  
+  const result = await productList.filter(({ name }) => name.includes(query));
+  if (!result) return PRODUCT_NOT_FOUND;
+
+  return { type: null, message: result };
+};
+
 module.exports = {
   getProducts,
   getById,
   createProduct,
   editProduct,
   deleteProduct,
- 
+  getProductsByQuery,
 };

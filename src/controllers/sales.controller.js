@@ -37,7 +37,7 @@ const editSaleById = async (req, res) => {
   const { type, message } = await salesService.editSaleById(Number(id), body);
 
   if (type) return res.status(errorMap.mapError(type)).json({ message });
-  return res.status(200).json({ saleId: Number(id), itemsUpdated: req.body });
+  return res.status(200).json({ saleId: Number(id), itemsUpdated: body });
 };
 
 module.exports = {

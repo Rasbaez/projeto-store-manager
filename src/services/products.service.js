@@ -58,7 +58,6 @@ const getProductsByQuery = async (query) => {
   const productList = await productModel.allProducts();
   
   const result = await productList.filter(({ name }) => name.includes(query));
-  if (!result) return PRODUCT_NOT_FOUND;
 
   return { type: null, message: result };
 };

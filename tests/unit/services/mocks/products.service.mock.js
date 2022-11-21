@@ -26,6 +26,11 @@ const editedProduct = {
   "name": "Xablauzeraaaa"
 };
 
+const requestByQuery = [{
+  'id': 1,
+  'name': 'Martelo de Thor'
+}];
+  
 module.exports = {
   products,
   product,
@@ -34,4 +39,5 @@ module.exports = {
   requestWrongValue,
   productToCreate,
   editedProduct,
+  requestByQuery
 };

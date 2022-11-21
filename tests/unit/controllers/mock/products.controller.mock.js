@@ -25,7 +25,10 @@ const newProduct = { id: 5, name: 'Xablau' };
 
 const badNameRequestProduct = { "nae": "Prodssfgewr" };
 
-
+const requestByQuery = {
+  "id": 1,
+  "name": 'Martelo de Thor'
+};
 
 module.exports = {
   products,
@@ -34,5 +37,6 @@ module.exports = {
   newProduct,
   productToEditIdResult,
   productToEditRequest,
-  badNameRequestProduct
+  badNameRequestProduct,
+  requestByQuery,
 };

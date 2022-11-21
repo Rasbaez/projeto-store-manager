@@ -59,5 +59,26 @@ describe('Testes da camada Model/Sales', () => {
         expect(insertSale).to.be.deep.equal(saleregistred);
       });
     });
+
+    describe('Teste da função "deleteSaleById"', () => { 
+      it('a função deve deletar um produto do banco de dados retornar com status 204 sem msg', async () => { 
+        sinon.stub(connection, 'execute').resolves();
+
+
+        const deleteSale = await salesModel.deleteSaleById(1);
+        
+        expect(deleteSale).to.be.deep.equal();
+      });
+    });
+
+    describe('Teste da função "editSaleById"', () => { 
+      it('A função deve editar um produto no db', async () => { 
+        sinon.stub(connection, 'execute').resolves();
+
+        const deleteSale = await salesModel.deleteSaleById(1);
+
+        expect(deleteSale).to.be.deep.equal();
+      });
+    });
   });
 });

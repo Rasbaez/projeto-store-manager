@@ -53,7 +53,7 @@ const editSaleById = async (idSale, body) => {
   }));
 
   if (!verifyIfExist(salesList, idSale)) return SALE_NOT_FOUND;
-
+  
   return { type: null, message: result };
 }; 
 

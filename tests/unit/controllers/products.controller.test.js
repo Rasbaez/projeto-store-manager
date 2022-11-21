@@ -9,6 +9,10 @@ chai.use(sinonChai);
 const productsService = require('../../../src/services/products.service');
 const productsController = require('../../../src/controllers/products.contoller');
 
+const PRODUCT_NOT_FOUND = { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+const PRODUCTS_NOT_FOUND = { type: 'PRODUCTS_NOT_FOUND', message: 'Products not found' };
+
+
 const {
   products,
   product,
@@ -16,7 +20,8 @@ const {
   newProduct,
   productToEditIdResult,
   productToEditRequest,
-  badNameRequestProduct
+  badNameRequestProduct,
+  requestByQuery,
 } = require('./mock/products.controller.mock');
 
 describe('Testes da camada Controller/Products', () => {
@@ -47,9 +52,7 @@ describe('Testes da camada Controller/Products', () => {
         res.status = sinon.stub().returns(res);
         res.json = sinon.stub().returns();
 
-        sinon.stub(productsService, 'getProducts').resolves(
-          { type: 'PRODUCTS_NOT_FOUND', message: 'Products not found' }
-        );
+        sinon.stub(productsService, 'getProducts').resolves(PRODUCTS_NOT_FOUND);
         await productsController.getProducts(req, res);
         expect(res.status).to.have.been.calledWith(404);
       });
@@ -79,8 +82,7 @@ describe('Testes da camada Controller/Products', () => {
         res.status = sinon.stub().returns(res);
         res.json = sinon.stub().returns();
 
-        sinon.stub(productsService, 'getById').resolves(
-          { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
+        sinon.stub(productsService, 'getById').resolves(PRODUCT_NOT_FOUND);
       
         await productsController.getById(req, res);
 
@@ -143,7 +145,7 @@ describe('Testes da camada Controller/Products', () => {
         res.status = sinon.stub().returns(res);
         res.json = sinon.stub().returns();
 
-        sinon.stub(productsService, 'editProduct').resolves({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
+        sinon.stub(productsService, 'editProduct').resolves(PRODUCT_NOT_FOUND);
         await productsController.editProduct(req, res);
         
         expect(res.status).to.have.been.calledWith(404);
@@ -168,15 +170,44 @@ describe('Testes da camada Controller/Products', () => {
       it('Em caso de falha deve retornar a mensagem "Product not found"', async () => { 
         const req = { params: { id: 5 } };
         const res = {};
+
         res.status = sinon.stub().returns(res);
         res.json = sinon.stub().returns();
 
-        sinon.stub(productsService, 'deleteProduct').resolves({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
+        sinon.stub(productsService, 'deleteProduct').resolves(PRODUCT_NOT_FOUND);
         await productsController.deleteProduct(req, res);
 
 
         expect(res.status).to.have.been.calledWith(404);
       });
+    });
+
+    describe('Teste da função "getProductsByQuery"', () => { 
+      it('Deve retornar o produto solicitado por nome', async () => { 
+        const req = { query: { q: 'Martelo' } };
+        const res = {};
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        sinon.stub(productsService, 'getProductsByQuery').resolves(requestByQuery);
+        await productsController.getProductsByQuery(req, res);
+
+        expect(res.status).to.have.been.calledWith(200);
+      });
+
+      it('Caso não encontre o produto, deve retornar "Product not found"', async () => {
+        const req = { query: { q: 'Xablau' } };
+        const res = {};
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        sinon.stub(productsService, 'getProductsByQuery').resolves(PRODUCT_NOT_FOUND);
+        await productsController.getProductsByQuery(req, res);
+
+        expect(res.status).to.have.been.calledWith(404);
+       });
     });
   });
  });

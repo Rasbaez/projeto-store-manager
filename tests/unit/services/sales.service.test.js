@@ -8,11 +8,17 @@ chai.use(sinonChai);
 const salesModel = require('../../../src/models/sales.model');
 const salesService = require('../../../src/services/sales.service');
 
+const SALE_NOT_FOUND = { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
+
+
 const {
   saleRegisterRequest,
   saleRegistredResult,
   salesList,
-  requestedSaleById } = require('./mocks/sales.service.mock');
+  requestedSaleById,
+  saleToEdit
+
+} = require('./mocks/sales.service.mock');
 
 describe('Testes da camada Service/Sales', () => { 
   describe('Testes unitários', () => { 
@@ -54,8 +60,44 @@ describe('Testes da camada Service/Sales', () => {
 
         const saleById = await salesService.getSaleById(999);
 
-        expect(saleById).to.be.deep.equal(saleById);
+        expect(saleById).to.be.deep.equal(SALE_NOT_FOUND);
       });
     }); 
+
+    describe('Testes da função "deleteSaleById"', () => {
+      it('Deve deletar uma venda do db conforme o Id solicitado', async () => { 
+        sinon.stub(salesModel, 'deleteSaleById').resolves();
+
+        const deleteByid = await salesService.deleteSaleById(1);
+
+        expect(deleteByid).to.be.deep.equal(deleteByid);
+      });
+
+      it('Caso não encontre o produto deve retornar o status "Sale not found"', async () => { 
+        sinon.stub(salesModel, 'deleteSaleById').resolves();
+
+        const deleteByid = await salesService.deleteSaleById(666);
+
+        expect(deleteByid).to.be.deep.equal(SALE_NOT_FOUND);
+      });
+    });
+
+    describe('Teste da função "editSaleById"', () => { 
+      it('Deve retornar a venda editada', async () => { 
+        sinon.stub(salesModel, 'editSaleById').resolves(saleToEdit);
+
+        const result = await salesService.editSaleById(1, saleToEdit);
+
+        expect(result).to.be.deep.equal(result);
+      });
+
+      it('Caso não encontre o produto deve retornar o status "Sale not found"', async () => {
+        sinon.stub(salesModel, 'editSaleById').resolves();
+
+        const result = await salesService.editSaleById(666, saleToEdit);
+
+        expect(result).to.be.deep.equal(SALE_NOT_FOUND);
+      });
+    });
   });
 });

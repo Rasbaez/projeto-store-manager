@@ -23,6 +23,17 @@ const saleRegistredResult = {
   ]
 };
 
+const saleToEdit = [
+  {
+    "productId": 1,
+    "quantity": 5
+  },
+  {
+    "productId": 2,
+    "quantity": 50
+  }
+];
+
 const salesList = [
   {
     "saleId": 1,
@@ -85,5 +96,6 @@ module.exports = {
   saleRegisterRequest,
   saleRegistredResult,
   salesList,
-  requestedSaleById
+  requestedSaleById,
+  saleToEdit,
 };

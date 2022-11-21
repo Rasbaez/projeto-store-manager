@@ -6,10 +6,11 @@ const { expect } = chai;
 chai.use(sinonChai);
 
 
-const { saleRegistred, saleslist, saleById } = require('./mock/sales.controller.mock');
+const { saleRegistred, saleslist, saleById, editedSale } = require('./mock/sales.controller.mock');
 const salesService = require('../../../src/services/sales.service');
 const salesController = require('../../../src/controllers/sales.controller');
 
+const SALE_NOT_FOUND = { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
 
 describe('Testeda camada Controller/Sales', () => {
   describe('Testes unitários', () => { 
@@ -33,15 +34,15 @@ describe('Testeda camada Controller/Sales', () => {
       });
     });
     describe('Teste da função "getAllsales"', () => {
-      it('A função deve retornar ', async () => {
-        const { saleId } = saleslist
-        sinon.stub(salesService, 'getAllSales').resolves({ type: null, message: null, saleId });
+      it('A função deve retornar todas as vendas ', async () => {
+
         const req = {};
-        const res = saleslist;
+        const res = {};
 
         res.status = sinon.stub().returns(res);
-        res.json = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
 
+        sinon.stub(salesService, 'getAllSales').resolves({ type: null, message: saleslist });
         await salesController.getAllSales(req, res);
 
         expect(res.status).to.have.been.calledWith(200);
@@ -62,19 +63,75 @@ describe('Testeda camada Controller/Sales', () => {
         expect(res.status).to.have.been.calledOnceWith(200);
         expect(res.json).to.have.been.calledWith(saleById);
       });
+
+      it('Caso não exista o produto, deve retornar o status 404, e a msg: "SALE_NOT_FOUND"', async () => {
+        const req = { params: 5 };
+        const res = {};
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        sinon.stub(salesService, 'getSaleById').resolves({ type: 'SALE_NOT_FOUND', message: 'Sale not found' })
+        await salesController.getSaleById(req, res);
+
+        expect(res.status).to.have.been.calledOnceWith(404);
+      });
     });
 
-    it('Caso não exista o produto, deve retornar o status 404, e a msg: "SALE_NOT_FOUND"', async () => { 
-      const req = { params: 5 };
-      const res = {};
-      res.status = sinon.stub().returns(res);
-      res.json = sinon.stub().returns();
+    describe('Teste da função "deleteSaleById"', () => { 
+      it('A função deve deletar uma venda do db, de acordo ao ID solicitado', async () => { 
+        const req = { params: { id: 1 } };
+        const res = {};
 
-      sinon.stub(salesService, 'getSaleById').resolves({ type: 'SALE_NOT_FOUND', message: 'Sale not found' })
-      await salesController.getSaleById(req, res);
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
 
-      expect(res.status).to.have.been.calledOnceWith(404);
+        sinon.stub(salesService, 'deleteSaleById').resolves({ type: null, message: saleById })
+        await salesController.deleteSaleById(req, res);
 
+        expect(res.status).to.have.been.calledOnceWith(204);
+      });
+
+      it('caso o produto não exista deve retornar a msg: "Sale not found"', async () => { 
+        const req = { params: { id: 666 } };
+        const res = {};
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        sinon.stub(salesService, 'deleteSaleById').resolves(SALE_NOT_FOUND)
+        await salesController.deleteSaleById(req, res);
+
+        expect(res.status).to.have.been.calledOnceWith(404);
+      });
+    });
+
+    describe('Teste da função "editSaleById"', () => { 
+      it('A função deve editar no db a venda solicitada por id', async () => { 
+        const req = { params: { id: 1 } };
+        const res = {};
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        sinon.stub(salesService, 'editSaleById').resolves({ type: null, message: editedSale })
+        await salesController.editSaleById(req, res);
+
+        expect(res.status).to.have.been.calledOnceWith(200);
+      });
+
+      it('Caso não encontre uma venda, deve retornar a mensagem: "Sale not found"', async () => { 
+        const req = { params: { id: 666 } };
+        const res = {};
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        sinon.stub(salesService, 'editSaleById').resolves(SALE_NOT_FOUND)
+        await salesController.editSaleById(req, res);
+
+        expect(res.status).to.have.been.calledOnceWith(404);
+      });
     });
   });
  });

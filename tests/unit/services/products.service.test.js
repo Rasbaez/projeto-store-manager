@@ -15,9 +15,12 @@ const {
   requestWrongValue,
   productToCreate,
   editedProduct,
+  requestByQuery
 } = require('./mocks/products.service.mock');
 
 const productsModel = require('../../../src/models/product.model');
+
+const PRODUCT_NOT_FOUND = { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
 
 describe('Testes da camada Service/Products', () => { 
   describe('Testes unitários', () => { 
@@ -104,7 +107,7 @@ describe('Testes da camada Service/Products', () => {
 
         const result = await productsService.editProduct(4, 'Xablauzeraaaa');
 
-        expect(result).to.be.deep.equal({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
+        expect(result).to.be.deep.equal(PRODUCT_NOT_FOUND);
       });
     }); 
     
@@ -122,8 +125,16 @@ describe('Testes da camada Service/Products', () => {
 
         const result = await productsService.deleteProduct(9999999);
 
-        expect(result).to.be.deep.equal({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
+        expect(result).to.be.deep.equal(PRODUCT_NOT_FOUND);
       });
-    }); 
+    });
+    
+    describe('Testes da função "getProductsByQuery"', () => {
+      it('A função deve retornar o produto por nome', async () => {
+        const result = await productsService.getProductsByQuery('Martelo');
+
+        expect(result).to.be.deep.equal({ type: null, message: requestByQuery });
+      });
+      });
+    });
   });
-});

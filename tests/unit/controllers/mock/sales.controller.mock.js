@@ -57,6 +57,20 @@ const saleslist = [
   }
 ];
 
+const editedSale = {
+  "saleId": 1,
+  "itemsUpdated": [
+    {
+      "productId": 1,
+      "quantity": 5
+    },
+    {
+      "productId": 2,
+      "quantity": 50
+    }
+  ]
+}
+
 const saleById = [
   {
     "productId": 1,
@@ -70,4 +84,4 @@ const saleById = [
   }
 ]
 
-module.exports = { saleRegistred, saleslist, saleById };
+module.exports = { saleRegistred, saleslist, saleById, editedSale };
